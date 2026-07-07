@@ -4,34 +4,40 @@ import SectionTitle from './SectionTitle.astro';
 
 const reviews = [
   {
-    quote: 'Excellent service.',
+    quote: 'Excelente servicio.',
     name: 'Yeferson',
-    detail: 'Corte de Pelo — JOSÉ',
+    service: 'Corte de Pelo',
+    barber: 'José',
   },
   {
-    quote: 'Perfect.',
+    quote: 'Perfecto.',
     name: 'Rodrigo',
-    detail: 'Corte de Pelo — ALEJANDRO',
+    service: 'Corte de Pelo',
+    barber: 'Alejandro',
   },
   {
-    quote: 'Impeccable.',
+    quote: 'Impecable.',
     name: 'Javier',
-    detail: 'Corte de Pelo — RANDY',
+    service: 'Corte de Pelo',
+    barber: 'Randy',
   },
   {
-    quote: 'Very professional and friendly service, as always.',
+    quote: 'Como siempre un servicio muy profesional y cercano.',
     name: 'José',
-    detail: 'Arreglo de barba — RANDY',
+    service: 'Arreglo de Barba',
+    barber: 'Randy',
   },
   {
-    quote: 'Very satisfied.',
+    quote: 'Muy satisfecho.',
     name: 'Fco Javier',
-    detail: 'Arreglo de barba — ALEJANDRO',
+    service: 'Arreglo de Barba',
+    barber: 'Alejandro',
   },
   {
-    quote: 'Very happy with my haircut. Friendly and pleasant service for both me and my son. A pleasure.',
+    quote: 'Muy contento con mi corte. La atención es muy cercana y agradable. Un placer.',
     name: 'Israel',
-    detail: 'Corte de pelo + Arreglo barba',
+    service: 'Corte + Arreglo Barba',
+    barber: 'Alejandro',
   },
 ];
 ---
@@ -44,17 +50,22 @@ const reviews = [
       {
         reviews.map((review) => (
           <div class="bg-dark-700 rounded-2xl p-8 border border-dark-600/30">
-            <span class="font-heading text-3xl text-gold/20 leading-none h-10 block" aria-hidden="true">
-              &ldquo;
-            </span>
-            <div class="text-gold text-sm mb-4" aria-label="5 out of 5 stars">
-              ★★★★★
+            <div class="flex items-center justify-between mb-5">
+              <span class="text-xs font-medium gold-text uppercase tracking-wider">{review.service}</span>
+              <div class="text-gold text-sm" aria-label="5 out of 5 stars">★★★★★</div>
             </div>
-            <p class="text-gray-300 leading-relaxed italic mb-6 line-clamp-4">
-              &ldquo;{review.quote}&rdquo;
+            <p class="text-gray-300 leading-relaxed mb-5">
+              {review.quote}
             </p>
-            <p class="font-semibold text-white">{review.name}</p>
-            <p class="text-gray-500 text-sm">{review.detail}</p>
+            <div class="flex items-center gap-3 pt-4 border-t border-dark-600/30">
+              <div class="h-8 w-8 rounded-full bg-dark-600 flex items-center justify-center">
+                <span class="text-xs font-semibold text-gray-300">{review.name.charAt(0)}</span>
+              </div>
+              <div>
+                <p class="font-semibold text-white text-sm">{review.name}</p>
+                <p class="text-gray-500 text-xs">{review.barber}</p>
+              </div>
+            </div>
           </div>
         ))
       }

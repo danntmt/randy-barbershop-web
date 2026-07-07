@@ -21,15 +21,15 @@ const images = [gallery1, gallery2, gallery3, gallery4, ig1, ig2, ig3, ig4];
       title="Nuestro Trabajo Habla por Sí Mismo"
     />
 
-    <div class="columns-2 gap-4 space-y-4 md:columns-3 lg:columns-4">
+    <div class="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
       {images.map((img, i) => (
         <div
-          class="group relative cursor-pointer overflow-hidden rounded-xl break-inside-avoid"
+          class="group relative cursor-pointer overflow-hidden rounded-xl aspect-square"
         >
           <Image
             src={img}
             alt={`Gallery image ${i + 1}`}
-            class="w-full object-cover transition-transform duration-500 group-hover:scale-110"
+            class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
           />
           <div class="absolute inset-0 bg-dark-900/0 transition-all duration-500 group-hover:bg-dark-900/40"></div>
           <div class="absolute inset-0 rounded-xl border border-transparent transition-all duration-500 group-hover:border-gold/30"></div>

@@ -49,7 +49,7 @@ const navLinks = [
 
     <button
       id="mobile-toggle"
-      class="md:hidden flex flex-col gap-1.5 p-2"
+      class="md:hidden flex flex-col gap-1.5 p-2 relative z-50"
       aria-label="Abrir menú"
     >
       <span class="block w-6 h-0.5 bg-white transition-all duration-300" id="bar1"></span>
@@ -57,30 +57,30 @@ const navLinks = [
       <span class="block w-6 h-0.5 bg-white transition-all duration-300" id="bar3"></span>
     </button>
   </nav>
-
-  <div
-    id="mobile-menu"
-    class="fixed inset-0 bg-dark-950 z-40 flex flex-col items-center justify-center gap-8 translate-y-[-100%] transition-transform duration-500 ease-in-out md:hidden"
-  >
-    {navLinks.map((link) => (
-      <a
-        href={link.href}
-        class="text-xl font-heading text-white hover:text-gold transition-colors duration-200"
-        id={`mobile-link-${link.label.toLowerCase()}`}
-      >
-        {link.label}
-      </a>
-    ))}
-    <a
-      href={BOOKS_URL}
-      target="_blank"
-      rel="noopener noreferrer"
-      class="bg-gold text-dark-900 px-8 py-3 rounded-full font-semibold text-base hover:bg-gold-light transition-all mt-4"
-    >
-      Reservar
-    </a>
-  </div>
 </header>
+
+<div
+  id="mobile-menu"
+  class="fixed inset-0 z-40 flex flex-col items-center justify-center gap-8 translate-y-[-100%] bg-dark-950 opacity-0 invisible pointer-events-none transition-all duration-500 ease-in-out md:hidden"
+>
+  {navLinks.map((link) => (
+    <a
+      href={link.href}
+      class="text-xl font-heading text-white hover:text-gold transition-colors duration-200"
+      id={`mobile-link-${link.label.toLowerCase()}`}
+    >
+      {link.label}
+    </a>
+  ))}
+  <a
+    href={BOOKS_URL}
+    target="_blank"
+    rel="noopener noreferrer"
+    class="bg-gold text-dark-900 px-8 py-3 rounded-full font-semibold text-base hover:bg-gold-light transition-all mt-4"
+  >
+    Reservar
+  </a>
+</div>
 
 <script>
   const navbar = document.getElementById('navbar');
@@ -105,14 +105,14 @@ const navLinks = [
   function toggleMenu() {
     menuOpen = !menuOpen;
     if (menuOpen) {
-      mobileMenu?.classList.remove('translate-y-[-100%]');
-      mobileMenu?.classList.add('translate-y-0');
+      mobileMenu?.classList.remove('translate-y-[-100%]', 'opacity-0', 'invisible', 'pointer-events-none');
+      mobileMenu?.classList.add('translate-y-0', 'opacity-100', 'visible', 'pointer-events-auto');
       bar1 && (bar1.style.transform = 'rotate(45deg) translate(5px, 5px)');
       bar2 && (bar2.style.opacity = '0');
       bar3 && (bar3.style.transform = 'rotate(-45deg) translate(5px, -5px)');
     } else {
-      mobileMenu?.classList.add('translate-y-[-100%]');
-      mobileMenu?.classList.remove('translate-y-0');
+      mobileMenu?.classList.add('translate-y-[-100%]', 'opacity-0', 'invisible', 'pointer-events-none');
+      mobileMenu?.classList.remove('translate-y-0', 'opacity-100', 'visible', 'pointer-events-auto');
       bar1 && (bar1.style.transform = 'rotate(0) translate(0, 0)');
       bar2 && (bar2.style.opacity = '1');
       bar3 && (bar3.style.transform = 'rotate(0) translate(0, 0)');
