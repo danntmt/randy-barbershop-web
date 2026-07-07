@@ -4,7 +4,8 @@ import tailwindcss from '@tailwindcss/vite';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://randybarbershop.com',
+  site: 'https://danntmt.github.io',
+  base: '/randy-barbershop-web/',
   vite: {
     plugins: [tailwindcss()]
   }
