@@ -1,0 +1,26 @@
+---
+const BOOKS_URL = 'https://booksy.com/es-es/55338_randy-barber-shop_barberia_53745_mostoles';
+
+interface Props {
+  page?: string;
+}
+
+const { page } = Astro.props;
+
+if (page === 'hidden') {
+  return;
+}
+---
+
+<a
+  href={BOOKS_URL}
+  target="_blank"
+  rel="noopener noreferrer"
+  class="fixed bottom-6 right-6 md:bottom-6 bottom-4 right-4 z-50 bg-gold text-dark-900 font-bold rounded-full shadow-2xl shadow-gold/20 hover:bg-gold-light hover:scale-105 transform transition-all duration-300 px-6 py-3.5 md:px-7 md:py-4 text-sm md:text-base flex items-center gap-3"
+>
+  <span class="relative flex h-2.5 w-2.5">
+    <span class="absolute inline-flex h-full w-full rounded-full bg-dark-900 opacity-60 animate-ping"></span>
+    <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-dark-900"></span>
+  </span>
+  Reservar
+</a>

@@ -1,0 +1,79 @@
+---
+import Container from './Container.astro';
+import SectionTitle from './SectionTitle.astro';
+
+const benefits = [
+  {
+    title: 'Cortes de Precisión',
+    description:
+      'Cada corte se realiza con meticulosa atención al detalle, usando técnicas avanzadas para resultados impecables.',
+    icon: `<path stroke-linecap="round" stroke-linejoin="round" d="M15 15l-2 5L9 9h6l-2 8h-1M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18z" />`,
+  },
+  {
+    title: 'Barberos Experimentados',
+    description:
+      'Nuestro equipo reúne más de una década de experiencia combinada, en continua formación en las últimas tendencias.',
+    icon: `<path stroke-linecap="round" stroke-linejoin="round" d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2 M23 21v-2a4 4 0 0 0-3-3.87 M16 3.13a4 4 0 0 1 0 7.75" /><circle cx="9" cy="7" r="4" />`,
+  },
+  {
+    title: 'Productos Premium',
+    description:
+      'Usamos solo productos profesionales que nutren tu cabello y piel, sin comprometer la calidad.',
+    icon: `<path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 0 0 2-2v-6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2zm10-10V7a4 4 0 0 0-8 0v4h8z" />`,
+  },
+  {
+    title: 'Ambiente Relajante',
+    description:
+      'Entra en un espacio diseñado para el confort — iluminación cálida, música seleccionada y un ambiente acogedor.',
+    icon: `<path stroke-linecap="round" stroke-linejoin="round" d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />`,
+  },
+  {
+    title: 'Estilismo Personalizado',
+    description:
+      'Cada servicio se adapta a tus rasgos únicos, preferencias y estilo de vida.',
+    icon: `<path stroke-linecap="round" stroke-linejoin="round" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />`,
+  },
+  {
+    title: 'Higiene y Calidad',
+    description:
+      'Estándares de limpieza impecables. Cada herramienta está desinfectada, cada superficie está impecable.',
+    icon: `<path stroke-linecap="round" stroke-linejoin="round" d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />`,
+  },
+];
+---
+
+<section id="why-us" class="bg-dark-900 py-20 md:py-32">
+  <Container>
+    <SectionTitle subtitle="Por Qué Elegirnos" title="La Diferencia Randy" />
+
+    <div class="grid md:grid-cols-2 gap-8">
+      {
+        benefits.map((benefit) => (
+          <div class="flex gap-5 items-start">
+            <div class="w-12 h-12 rounded-xl bg-dark-700 border border-dark-600/50 flex items-center justify-center flex-shrink-0">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="22"
+                height="22"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                class="text-gold"
+                set:html={benefit.icon}
+              />
+            </div>
+            <div>
+              <h3 class="font-heading text-lg font-semibold text-white">
+                {benefit.title}
+              </h3>
+              <p class="text-gray-400 text-sm mt-2 leading-relaxed">
+                {benefit.description}
+              </p>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </Container>
+</section>

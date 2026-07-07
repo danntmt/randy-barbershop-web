@@ -1,0 +1,63 @@
+---
+import Container from './Container.astro';
+import SectionTitle from './SectionTitle.astro';
+
+const reviews = [
+  {
+    quote: 'Excellent service.',
+    name: 'Yeferson',
+    detail: 'Corte de Pelo — JOSÉ',
+  },
+  {
+    quote: 'Perfect.',
+    name: 'Rodrigo',
+    detail: 'Corte de Pelo — ALEJANDRO',
+  },
+  {
+    quote: 'Impeccable.',
+    name: 'Javier',
+    detail: 'Corte de Pelo — RANDY',
+  },
+  {
+    quote: 'Very professional and friendly service, as always.',
+    name: 'José',
+    detail: 'Arreglo de barba — RANDY',
+  },
+  {
+    quote: 'Very satisfied.',
+    name: 'Fco Javier',
+    detail: 'Arreglo de barba — ALEJANDRO',
+  },
+  {
+    quote: 'Very happy with my haircut. Friendly and pleasant service for both me and my son. A pleasure.',
+    name: 'Israel',
+    detail: 'Corte de pelo + Arreglo barba',
+  },
+];
+---
+
+<section id="testimonials" class="bg-dark-800 py-20 md:py-32">
+  <Container>
+    <SectionTitle subtitle="Testimonios" title="Lo Que Dicen Nuestros Clientes" />
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {
+        reviews.map((review) => (
+          <div class="bg-dark-700 rounded-2xl p-8 border border-dark-600/30">
+            <span class="font-heading text-3xl text-gold/20 leading-none h-10 block" aria-hidden="true">
+              &ldquo;
+            </span>
+            <div class="text-gold text-sm mb-4" aria-label="5 out of 5 stars">
+              ★★★★★
+            </div>
+            <p class="text-gray-300 leading-relaxed italic mb-6 line-clamp-4">
+              &ldquo;{review.quote}&rdquo;
+            </p>
+            <p class="font-semibold text-white">{review.name}</p>
+            <p class="text-gray-500 text-sm">{review.detail}</p>
+          </div>
+        ))
+      }
+    </div>
+  </Container>
+</section>

@@ -1,0 +1,113 @@
+---
+import Container from './Container.astro';
+import SectionTitle from './SectionTitle.astro';
+
+const faqs = [
+  {
+    question: '¿Necesito reservar cita?',
+    answer:
+      'Aunque aceptamos clientes sin cita, recomendamos reservar a través de Booksy para asegurar tu horario y barbero preferido.',
+  },
+  {
+    question: '¿Qué servicios ofrecéis?',
+    answer:
+      'Ofrecemos una gama completa de servicios de barbería: cortes de pelo, arreglos de barba, degradados, afeitados con toalla caliente, tratamientos faciales, tintes y paquetes premium de cuidado personal.',
+  },
+  {
+    question: '¿Cómo reservo una cita?',
+    answer:
+      "Todas las citas se reservan a través de nuestra página de Booksy. Haz clic en cualquier botón 'Reservar' de nuestra web.",
+  },
+  {
+    question: '¿Dónde estáis ubicados?',
+    answer:
+      "Estamos en Av. de la Constitución, 41, 28931 Móstoles. Fácil acceso y ambiente acogedor.",
+  },
+  {
+    question: '¿Cuál es vuestro horario?',
+    answer:
+      'Lunes a Viernes: 10:00 – 20:00, Sábado: 10:00 – 15:00, Domingo: Cerrado.',
+  },
+  {
+    question: '¿Aceptáis niños?',
+    answer:
+      "¡Sí! Ofrecemos cortes infantiles especializados (hasta 12 años) e incluso el primer corte de bebé (hasta 3 años) en un ambiente cómodo y paciente.",
+  },
+];
+---
+
+<section id="faq" class="bg-dark-900 py-20 md:py-32">
+  <Container>
+    <SectionTitle subtitle="Preguntas Frecuentes" title="Preguntas Frecuentes" />
+
+    <div class="max-w-3xl mx-auto" id="faq-accordion">
+      {
+        faqs.map((faq, index) => (
+          <div class="border-b border-dark-600/50">
+            <button
+              type="button"
+              class="faq-question flex justify-between items-center py-5 w-full text-left cursor-pointer"
+              data-index={index}
+            >
+              <span class="font-semibold text-white text-lg">{faq.question}</span>
+              <span
+                class="faq-icon text-gold text-2xl transition-transform duration-300"
+                data-index={index}
+              >
+                +
+              </span>
+            </button>
+            <div
+              class="faq-answer overflow-hidden transition-all duration-300"
+              style="max-height: 0;"
+              data-index={index}
+            >
+              <p class="text-gray-400 leading-relaxed pb-5">
+                {faq.answer}
+              </p>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </Container>
+</section>
+
+<script>
+  function initFAQ() {
+    const accordion = document.getElementById('faq-accordion');
+    if (!accordion) return;
+
+    const questions = accordion.querySelectorAll('.faq-question');
+    const answers = accordion.querySelectorAll('.faq-answer');
+    const icons = accordion.querySelectorAll('.faq-icon');
+
+    questions.forEach((question) => {
+      question.addEventListener('click', () => {
+        const index = question.dataset.index;
+        const answer = accordion.querySelector(`.faq-answer[data-index="${index}"]`);
+        const icon = accordion.querySelector(`.faq-icon[data-index="${index}"]`);
+
+        if (!answer || !icon) return;
+
+        const isOpen = answer.style.maxHeight !== '0px' && answer.style.maxHeight !== '';
+
+        answers.forEach((a) => {
+          a.style.maxHeight = '0';
+        });
+        icons.forEach((i) => {
+          i.textContent = '+';
+          i.style.transform = 'rotate(0deg)';
+        });
+
+        if (!isOpen) {
+          answer.style.maxHeight = answer.scrollHeight + 'px';
+          icon.textContent = '−';
+          icon.style.transform = 'rotate(180deg)';
+        }
+      });
+    });
+  }
+
+  initFAQ();
+</script>

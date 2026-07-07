@@ -1,0 +1,177 @@
+---
+import Container from './Container.astro';
+import SectionTitle from './SectionTitle.astro';
+
+const BOOKS_URL = 'https://booksy.com/es-es/55338_randy-barber-shop_barberia_53745_mostoles';
+
+const services = [
+  {
+    name: 'Corte de Pelo',
+    description: 'Corte clásico y moderno adaptado a tu estilo.',
+    icon: 'scissors',
+  },
+  {
+    name: 'Corte + Arreglo Barba',
+    description: 'Paquete completo de corte y arreglo de barba.',
+    icon: 'combo',
+  },
+  {
+    name: 'Corte Infantil',
+    description: 'Cortes suaves y divertidos para niños hasta 12 años.',
+    icon: 'scissors-sm',
+  },
+  {
+    name: 'Arreglo de Barba',
+    description: 'Perfilado y arreglo de barba de precisión.',
+    icon: 'razor',
+  },
+  {
+    name: 'Afeitado Old School',
+    description: 'Afeitado tradicional con toalla caliente.',
+    icon: 'straight-razor',
+  },
+  {
+    name: 'Experiencia Premium',
+    description: 'Mejora de imagen deluxe con productos premium.',
+    icon: 'star',
+  },
+  {
+    name: 'Ritual Supremo',
+    description: 'Nuestro ritual de cuidado supremo.',
+    icon: 'diamond',
+  },
+  {
+    name: 'Facial Black Clean',
+    description: 'Limpieza facial profunda con mascarilla negra.',
+    icon: 'face',
+  },
+  {
+    name: 'Afeitado de Cabeza',
+    description: 'Afeitado de cabeza limpio y suave.',
+    icon: 'head',
+  },
+  {
+    name: 'Teñir Barba',
+    description: 'Tinte de barba en colores naturales.',
+    icon: 'brush',
+  },
+  {
+    name: 'Corte Senior',
+    description: 'Cortes con descuento para jubilados.',
+    icon: 'scissors-simple',
+  },
+  {
+    name: 'Corte de Bebé',
+    description: 'Primer corte suave para los más pequeños.',
+    icon: 'baby',
+  },
+];
+---
+
+<section id="services" class="bg-dark-800 py-20 md:py-32">
+  <Container>
+    <SectionTitle
+      subtitle="Nuestros Servicios"
+      title="Servicios Premium de Barbería"
+    />
+
+    <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      {services.map((service, i) => (
+        <div
+          class="group rounded-2xl border border-dark-600/30 bg-dark-700 p-8 transition-all duration-300 hover:-translate-y-1 hover:border-gold/30 hover:shadow-2xl hover:shadow-gold/5 animate-fade-up"
+          style={`animation-delay: ${i * 75}ms;`}
+        >
+          <div class="mb-5 h-10 w-10 text-gold">
+            {service.icon === 'scissors' && (
+              <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" class="h-full w-full">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 6l4 3-4 3m6-6l6 8m-6-8l-6 8m6-8l6-8m-6 8l-6-8" />
+              </svg>
+            )}
+            {service.icon === 'combo' && (
+              <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" class="h-full w-full">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 6l4 3-4 3m10 4l-4-5 4-5M5 17l2-9M19 17l-2-9" />
+              </svg>
+            )}
+            {service.icon === 'scissors-sm' && (
+              <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" class="h-full w-full scale-75 origin-center">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 6l4 3-4 3m6-6l6 8m-6-8l-6 8m6-8l6-8m-6 8l-6-8" />
+              </svg>
+            )}
+            {service.icon === 'razor' && (
+              <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" class="h-full w-full">
+                <rect x="5" y="3" width="6" height="3" rx="1" />
+                <rect x="13" y="3" width="6" height="3" rx="1" transform="rotate(45 16 4.5)" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M7 6v12a3 3 0 003 3h0a3 3 0 003-3v-4" />
+              </svg>
+            )}
+            {service.icon === 'straight-razor' && (
+              <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" class="h-full w-full">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4 20l8-8m0 0l6-6m-6 6l6 6m-6-6L6 6" />
+                <path d="M8 6l4 4" stroke="currentColor" stroke-width="1.5" />
+              </svg>
+            )}
+            {service.icon === 'star' && (
+              <svg fill="currentColor" viewBox="0 0 24 24" class="h-full w-full">
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z" />
+              </svg>
+            )}
+            {service.icon === 'diamond' && (
+              <svg fill="currentColor" viewBox="0 0 24 24" class="h-full w-full">
+                <path d="M12 2L2 8l10 14L22 8l-10-6zm0 3.6L18.7 8 12 17.4 5.3 8 12 5.6z" />
+              </svg>
+            )}
+            {service.icon === 'face' && (
+              <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" class="h-full w-full">
+                <circle cx="12" cy="12" r="10" />
+                <path stroke-linecap="round" d="M8 14s1.5 2 4 2 4-2 4-2" />
+                <circle cx="9" cy="9" r="1" fill="currentColor" />
+                <circle cx="15" cy="9" r="1" fill="currentColor" />
+              </svg>
+            )}
+            {service.icon === 'head' && (
+              <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" class="h-full w-full">
+                <circle cx="12" cy="8" r="5" />
+                <path stroke-linecap="round" d="M4 20c0-4.4 3.6-8 8-8s8 3.6 8 8" />
+              </svg>
+            )}
+            {service.icon === 'brush' && (
+              <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" class="h-full w-full">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5 19l5-5m0 0l-2.5-2.5M15 10l-2.5 2.5m0 0L19 5" />
+                <path d="M3 21l2 2m14-14l2 2" stroke="currentColor" stroke-width="1" />
+              </svg>
+            )}
+            {service.icon === 'scissors-simple' && (
+              <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" class="h-full w-full">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3 7h2l2-4M21 7h-2l-2 4m-1 0l-4 10M8 7h8" />
+              </svg>
+            )}
+            {service.icon === 'baby' && (
+              <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" class="h-full w-full">
+                <circle cx="9" cy="7" r="4" />
+                <circle cx="15" cy="7" r="4" />
+                <path stroke-linecap="round" d="M5 21v-7a2 2 0 012-2h10a2 2 0 012 2v7M7 18h10" />
+              </svg>
+            )}
+          </div>
+
+          <h3 class="font-heading text-xl font-semibold text-white">
+            {service.name}
+          </h3>
+
+          <p class="mt-2 line-clamp-2 text-sm text-gray-400">
+            {service.description}
+          </p>
+
+          <a
+            href={BOOKS_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="mt-4 inline-block text-sm font-semibold gold-text hover:underline"
+          >
+            Reservar &rarr;
+          </a>
+        </div>
+      ))}
+    </div>
+  </Container>
+</section>

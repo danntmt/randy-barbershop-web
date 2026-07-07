@@ -1,0 +1,80 @@
+---
+import { Image } from 'astro:assets';
+import Container from './Container.astro';
+import SectionTitle from './SectionTitle.astro';
+import teamRandy from '../assets/images/team-randy.jpg';
+import teamJose from '../assets/images/team-jose.jpg';
+import teamAlejandro from '../assets/images/team-alejandro.jpg';
+import teamArgenis from '../assets/images/team-argenis.jpg';
+
+const barbers = [
+  {
+    name: 'Randy',
+    role: 'Barbero Máster y Fundador',
+    bio: 'Más de 10 años de experiencia, precisión y pasión en cada corte.',
+    image: teamRandy,
+    alt: 'Randy — barbero máster y fundador de Randy Barber Shop',
+  },
+  {
+    name: 'José',
+    role: 'Barbero Senior',
+    bio: 'Especializado en estilos clásicos y modernos, con un enfoque detallista y cercano.',
+    image: teamJose,
+    alt: 'José — barbero senior en Randy Barber Shop',
+  },
+  {
+    name: 'Alejandro',
+    role: 'Especialista en Estilo',
+    bio: 'Su ojo creativo garantiza que cada cliente salga con su mejor versión.',
+    image: teamAlejandro,
+    alt: 'Alejandro — especialista en estilo en Randy Barber Shop',
+  },
+  {
+    name: 'Argenis',
+    role: 'Experto en Barba',
+    bio: 'Maestro del arreglo de barba y afeitado con toalla caliente.',
+    image: teamArgenis,
+    alt: 'Argenis — experto en barba en Randy Barber Shop',
+  },
+];
+---
+
+<section id="team" class="bg-dark-800 py-20 md:py-32">
+  <Container>
+    <SectionTitle
+      subtitle="Nuestro Equipo"
+      title="Conoce a Tus Barberos"
+    />
+
+    <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:gap-12">
+      {barbers.map((barber, i) => (
+        <div
+          class="group rounded-2xl border border-dark-600/30 bg-dark-700 p-8 md:p-10 text-center transition-all duration-300 hover:-translate-y-2 hover:border-gold/30 hover:shadow-xl animate-fade-up"
+          style={`animation-delay: ${i * 150}ms;`}
+        >
+          <div class="mx-auto h-56 w-56 md:h-64 md:w-64 overflow-hidden rounded-full border-2 border-dark-600 group-hover:border-gold/30 transition-colors duration-300">
+            <Image
+              src={barber.image}
+              alt={barber.alt}
+              class="h-full w-full object-cover"
+              width={256}
+              height={256}
+            />
+          </div>
+
+          <h3 class="mt-6 font-heading text-2xl font-semibold text-white">
+            {barber.name}
+          </h3>
+
+          <p class="mt-2 text-sm font-medium gold-text">
+            {barber.role}
+          </p>
+
+          <p class="mt-4 text-sm leading-relaxed text-gray-400">
+            {barber.bio}
+          </p>
+        </div>
+      ))}
+    </div>
+  </Container>
+</section>

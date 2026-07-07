@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://randybarbershop.com/sitemap-index.xml
