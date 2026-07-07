@@ -1,12 +1,7 @@
 ---
 const BOOKS_URL = 'https://booksy.com/es-es/55338_randy-barber-shop_barberia_53745_mostoles';
-
-interface Props {
-  currentPage?: string;
-}
-
+interface Props { currentPage?: string; }
 const { currentPage } = Astro.props;
-
 const navLinks = [
   { label: 'Inicio', href: '#home' },
   { label: 'Nosotros', href: '#about' },
@@ -17,11 +12,12 @@ const navLinks = [
 ];
 ---
 
-<header id="navbar" class="fixed top-0 left-0 w-full z-50">
+<header
+  id="navbar"
+  class="fixed top-0 left-0 w-full z-50 bg-dark-950/90 backdrop-blur-md border-b border-dark-600/50 transition-transform duration-300"
+>
   <nav class="container mx-auto flex items-center justify-between px-5 md:px-8 xl:px-12 py-4">
-    <a href="#home" class="font-heading text-xl md:text-2xl font-bold text-gold tracking-wide">
-      RANDY
-    </a>
+    <a href="#home" class="font-heading text-xl md:text-2xl font-bold text-gold tracking-wide">RANDY</a>
 
     <div class="hidden lg:flex items-center gap-5 xl:gap-8">
       {navLinks.map((link) => (
@@ -29,9 +25,7 @@ const navLinks = [
           href={link.href}
           class:list={[
             'text-xs lg:text-sm font-medium tracking-wide uppercase transition-colors duration-200',
-            currentPage === link.href
-              ? 'text-gold'
-              : 'text-white hover:text-gold',
+            currentPage === link.href ? 'text-gold' : 'text-white hover:text-gold',
           ]}
         >
           {link.label}
@@ -49,20 +43,37 @@ const navLinks = [
 
     <button
       id="mobile-toggle"
-      class="lg:hidden flex flex-col gap-1.5 p-2 relative z-50"
+      class="lg:hidden flex flex-col gap-1.5 p-2 relative z-[110]"
       aria-label="Abrir menú"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
     >
-      <span class="block w-6 h-0.5 bg-white transition-all duration-300" id="bar1"></span>
-      <span class="block w-6 h-0.5 bg-white transition-all duration-300" id="bar2"></span>
-      <span class="block w-6 h-0.5 bg-white transition-all duration-300" id="bar3"></span>
+      <span class="bar block w-6 h-0.5 bg-white transition-all duration-300 origin-center"></span>
+      <span class="bar block w-6 h-0.5 bg-white transition-all duration-300"></span>
+      <span class="bar block w-6 h-0.5 bg-white transition-all duration-300 origin-center"></span>
     </button>
   </nav>
 </header>
 
 <div
   id="mobile-menu"
-  class="fixed inset-0 z-40 flex flex-col items-center justify-center gap-8 translate-y-[-100%] bg-dark-950 opacity-0 invisible pointer-events-none transition-all duration-500 ease-in-out lg:hidden"
+  class="fixed inset-0 z-[100] flex flex-col items-center justify-center gap-8 translate-x-full bg-dark-950/95 backdrop-blur-xl h-dvh transition-transform duration-500 ease-in-out lg:hidden"
+  role="dialog"
+  aria-modal="true"
+  aria-label="Menú principal"
+  aria-hidden="true"
 >
+  <button
+    id="mobile-close"
+    class="absolute top-6 right-6 p-2 z-10"
+    aria-label="Cerrar menú"
+  >
+    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-white hover:text-gold transition-colors duration-200">
+      <line x1="18" y1="6" x2="6" y2="18"></line>
+      <line x1="6" y1="6" x2="18" y2="18"></line>
+    </svg>
+  </button>
+
   {navLinks.map((link) => (
     <a
       href={link.href}
@@ -82,52 +93,131 @@ const navLinks = [
   </a>
 </div>
 
+<style>
+  .menu-open .bar:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+  .menu-open .bar:nth-child(2) {
+    opacity: 0;
+  }
+  .menu-open .bar:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+  }
+</style>
+
 <script>
-  const navbar = document.getElementById('navbar');
+  const header = document.getElementById('navbar');
   const mobileToggle = document.getElementById('mobile-toggle');
   const mobileMenu = document.getElementById('mobile-menu');
-  const bar1 = document.getElementById('bar1');
-  const bar2 = document.getElementById('bar2');
-  const bar3 = document.getElementById('bar3');
+  const mobileClose = document.getElementById('mobile-close');
 
   let menuOpen = false;
+  let lastScrollY = 0;
+  let ticking = false;
 
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 50) {
-      if (navbar) {
-        navbar.style.backgroundColor = '#121212';
-        navbar.style.borderBottom = '1px solid rgba(42, 42, 42, 0.5)';
-      }
-    } else {
-      if (navbar) {
-        navbar.style.backgroundColor = 'transparent';
-        navbar.style.borderBottom = 'none';
-      }
-    }
-  });
+  function getFocusableElements() {
+    if (!mobileMenu) return [];
+    return Array.from(
+      mobileMenu.querySelectorAll<HTMLElement>(
+        'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+      )
+    );
+  }
 
-  function toggleMenu() {
-    menuOpen = !menuOpen;
-    if (menuOpen) {
-      mobileMenu?.classList.remove('translate-y-[-100%]', 'opacity-0', 'invisible', 'pointer-events-none');
-      mobileMenu?.classList.add('translate-y-0', 'opacity-100', 'visible', 'pointer-events-auto');
-      bar1 && (bar1.style.transform = 'rotate(45deg) translate(5px, 5px)');
-      bar2 && (bar2.style.opacity = '0');
-      bar3 && (bar3.style.transform = 'rotate(-45deg) translate(5px, -5px)');
-    } else {
-      mobileMenu?.classList.add('translate-y-[-100%]', 'opacity-0', 'invisible', 'pointer-events-none');
-      mobileMenu?.classList.remove('translate-y-0', 'opacity-100', 'visible', 'pointer-events-auto');
-      bar1 && (bar1.style.transform = 'rotate(0) translate(0, 0)');
-      bar2 && (bar2.style.opacity = '1');
-      bar3 && (bar3.style.transform = 'rotate(0) translate(0, 0)');
+  function openMenu() {
+    menuOpen = true;
+    mobileMenu?.classList.remove('translate-x-full');
+    mobileMenu?.classList.add('translate-x-0');
+    mobileMenu?.setAttribute('aria-hidden', 'false');
+    mobileToggle?.classList.add('menu-open');
+    mobileToggle?.setAttribute('aria-label', 'Cerrar menú');
+    mobileToggle?.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+
+    const focusable = getFocusableElements();
+    if (focusable.length > 0) {
+      requestAnimationFrame(() => focusable[0].focus());
     }
   }
 
+  function closeMenu() {
+    menuOpen = false;
+    mobileMenu?.classList.add('translate-x-full');
+    mobileMenu?.classList.remove('translate-x-0');
+    mobileMenu?.setAttribute('aria-hidden', 'true');
+    mobileToggle?.classList.remove('menu-open');
+    mobileToggle?.setAttribute('aria-label', 'Abrir menú');
+    mobileToggle?.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+    mobileToggle?.focus();
+  }
+
+  function toggleMenu() {
+    menuOpen ? closeMenu() : openMenu();
+  }
+
   mobileToggle?.addEventListener('click', toggleMenu);
+  mobileClose?.addEventListener('click', closeMenu);
 
   mobileMenu?.querySelectorAll('a').forEach((link) => {
     link.addEventListener('click', () => {
-      if (menuOpen) toggleMenu();
+      if (menuOpen) closeMenu();
     });
   });
+
+  document.addEventListener('keydown', (e) => {
+    if (!menuOpen) return;
+
+    if (e.key === 'Escape') {
+      e.preventDefault();
+      closeMenu();
+      return;
+    }
+
+    if (e.key === 'Tab') {
+      const focusable = getFocusableElements();
+      if (focusable.length === 0) return;
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+
+      if (e.shiftKey) {
+        if (document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        }
+      } else {
+        if (document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
+    }
+  });
+
+  window.addEventListener(
+    'scroll',
+    () => {
+      if (menuOpen || ticking) return;
+      ticking = true;
+
+      requestAnimationFrame(() => {
+        const currentScrollY = window.scrollY;
+
+        if (currentScrollY > 80) {
+          if (currentScrollY > lastScrollY) {
+            header?.classList.add('-translate-y-full');
+          } else {
+            header?.classList.remove('-translate-y-full');
+          }
+        } else {
+          header?.classList.remove('-translate-y-full');
+        }
+
+        lastScrollY = currentScrollY;
+        ticking = false;
+      });
+    },
+    { passive: true }
+  );
 </script>
