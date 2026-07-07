@@ -94,11 +94,11 @@ const navLinks = [
 
   window.addEventListener('scroll', () => {
     if (window.scrollY > 50) {
-      navbar?.classList.add('bg-[var(--color-dark-900)]', 'backdrop-blur-lg', 'border-b', 'border-[var(--color-dark-600)]/50');
+      navbar?.classList.add('bg-dark-900', 'border-b', 'border-dark-600/50');
       navbar?.classList.remove('bg-transparent');
     } else {
       navbar?.classList.add('bg-transparent');
-      navbar?.classList.remove('bg-[var(--color-dark-900)]', 'backdrop-blur-lg', 'border-b', 'border-[var(--color-dark-600)]/50');
+      navbar?.classList.remove('bg-dark-900', 'border-b', 'border-dark-600/50');
     }
   });
 
