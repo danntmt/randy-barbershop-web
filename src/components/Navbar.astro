@@ -18,17 +18,17 @@ const navLinks = [
 ---
 
 <header id="navbar" class="fixed top-0 left-0 w-full z-50">
-  <nav class="container mx-auto flex items-center justify-between px-5 md:px-8 lg:px-12 py-4">
-    <a href="#home" class="font-heading text-2xl font-bold text-gold tracking-wide">
+  <nav class="container mx-auto flex items-center justify-between px-5 md:px-8 xl:px-12 py-4">
+    <a href="#home" class="font-heading text-xl md:text-2xl font-bold text-gold tracking-wide">
       RANDY
     </a>
 
-    <div class="hidden md:flex items-center gap-8">
+    <div class="hidden lg:flex items-center gap-5 xl:gap-8">
       {navLinks.map((link) => (
         <a
           href={link.href}
           class:list={[
-            'text-sm font-medium tracking-wide uppercase transition-colors duration-200',
+            'text-xs lg:text-sm font-medium tracking-wide uppercase transition-colors duration-200',
             currentPage === link.href
               ? 'text-gold'
               : 'text-white hover:text-gold',
@@ -41,7 +41,7 @@ const navLinks = [
         href={BOOKS_URL}
         target="_blank"
         rel="noopener noreferrer"
-        class="bg-gold text-dark-900 px-6 py-2 rounded-full font-semibold text-sm hover:bg-gold-light transition-all"
+        class="bg-gold text-dark-900 px-5 py-1.5 lg:px-6 lg:py-2 rounded-full font-semibold text-xs lg:text-sm hover:bg-gold-light transition-colors duration-200 whitespace-nowrap shrink-0"
       >
         Reservar
       </a>
@@ -49,7 +49,7 @@ const navLinks = [
 
     <button
       id="mobile-toggle"
-      class="md:hidden flex flex-col gap-1.5 p-2 relative z-50"
+      class="lg:hidden flex flex-col gap-1.5 p-2 relative z-50"
       aria-label="Abrir menú"
     >
       <span class="block w-6 h-0.5 bg-white transition-all duration-300" id="bar1"></span>
@@ -61,7 +61,7 @@ const navLinks = [
 
 <div
   id="mobile-menu"
-  class="fixed inset-0 z-40 flex flex-col items-center justify-center gap-8 translate-y-[-100%] bg-dark-950 opacity-0 invisible pointer-events-none transition-all duration-500 ease-in-out md:hidden"
+  class="fixed inset-0 z-40 flex flex-col items-center justify-center gap-8 translate-y-[-100%] bg-dark-950 opacity-0 invisible pointer-events-none transition-all duration-500 ease-in-out lg:hidden"
 >
   {navLinks.map((link) => (
     <a
