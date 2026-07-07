@@ -1,7 +1,12 @@
 ---
-const BOOKS_URL = 'https://booksy.com/es-es/55338_randy-barber-shop_barberia_53745_mostoles';
-interface Props { currentPage?: string; }
+interface Props {
+  currentPage?: string;
+}
+
 const { currentPage } = Astro.props;
+
+const BOOKS_URL = 'https://booksy.com/es-es/55338_randy-barber-shop_barberia_53745_mostoles';
+
 const navLinks = [
   { label: 'Inicio', href: '#home' },
   { label: 'Nosotros', href: '#about' },
@@ -14,210 +19,233 @@ const navLinks = [
 
 <header
   id="navbar"
-  class="fixed top-0 left-0 w-full z-50 bg-dark-950/90 backdrop-blur-md border-b border-dark-600/50 transition-transform duration-300"
+  class="fixed top-0 w-full bg-dark-950/90 backdrop-blur-md z-50 border-b border-dark-600/50 transition-transform duration-300"
 >
-  <nav class="container mx-auto flex items-center justify-between px-5 md:px-8 xl:px-12 py-4">
-    <a href="#home" class="font-heading text-xl md:text-2xl font-bold text-gold tracking-wide">RANDY</a>
-
-    <div class="hidden lg:flex items-center gap-5 xl:gap-8">
-      {navLinks.map((link) => (
-        <a
-          href={link.href}
-          class:list={[
-            'text-xs lg:text-sm font-medium tracking-wide uppercase transition-colors duration-200',
-            currentPage === link.href ? 'text-gold' : 'text-white hover:text-gold',
-          ]}
-        >
-          {link.label}
-        </a>
-      ))}
+  <div class="container mx-auto px-5">
+    <nav class="flex justify-between items-center h-16 md:h-20">
       <a
-        href={BOOKS_URL}
-        target="_blank"
-        rel="noopener noreferrer"
-        class="bg-gold text-dark-900 px-5 py-1.5 lg:px-6 lg:py-2 rounded-full font-semibold text-xs lg:text-sm hover:bg-gold-light transition-colors duration-200 whitespace-nowrap shrink-0"
+        href="/#home"
+        class="font-heading text-xl md:text-2xl font-bold text-gold tracking-wide transition-all duration-300"
+        aria-label="Ir al inicio"
       >
-        Reservar
+        RANDY
       </a>
-    </div>
 
-    <button
-      id="mobile-toggle"
-      class="lg:hidden flex flex-col gap-1.5 p-2 relative z-[110]"
-      aria-label="Abrir menú"
-      aria-expanded="false"
-      aria-controls="mobile-menu"
-    >
-      <span class="bar block w-6 h-0.5 bg-white transition-all duration-300 origin-center"></span>
-      <span class="bar block w-6 h-0.5 bg-white transition-all duration-300"></span>
-      <span class="bar block w-6 h-0.5 bg-white transition-all duration-300 origin-center"></span>
-    </button>
-  </nav>
+      <div class="hidden min-[1028px]:flex gap-3 min-[1500px]:gap-5 2xl:gap-7 items-center">
+        <a
+          href="#home"
+          class="text-xs lg:text-sm font-medium tracking-wide uppercase transition-colors duration-200 text-white hover:text-gold"
+        >
+          Inicio
+        </a>
+        <a
+          href="#services"
+          class="text-xs lg:text-sm font-medium tracking-wide uppercase transition-colors duration-200 text-white hover:text-gold"
+        >
+          Servicios
+        </a>
+        <a
+          href="#gallery"
+          class="text-xs lg:text-sm font-medium tracking-wide uppercase transition-colors duration-200 text-white hover:text-gold"
+        >
+          Galería
+        </a>
+        <a
+          href="#team"
+          class="hidden min-[1500px]:block text-xs lg:text-sm font-medium tracking-wide uppercase transition-colors duration-200 text-white hover:text-gold"
+        >
+          Equipo
+        </a>
+        <a
+          href="#about"
+          class="hidden min-[1500px]:block text-xs lg:text-sm font-medium tracking-wide uppercase transition-colors duration-200 text-white hover:text-gold"
+        >
+          Nosotros
+        </a>
+        <a
+          href="#contact"
+          class="text-xs lg:text-sm font-medium tracking-wide uppercase transition-colors duration-200 text-white hover:text-gold"
+        >
+          Contacto
+        </a>
+        <a
+          href={BOOKS_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="bg-gold text-dark-900 px-5 py-1.5 lg:px-6 lg:py-2 rounded-full font-semibold text-xs lg:text-sm hover:bg-gold-light transition-colors duration-200 whitespace-nowrap shrink-0"
+        >
+          Reservar
+        </a>
+      </div>
+
+      <div class="flex gap-4 items-center">
+        <button
+          id="menu-toggle"
+          class="min-[1500px]:hidden text-white text-2xl focus:outline-none cursor-pointer p-2 hover:text-gold transition-colors"
+          aria-label="Abrir menú"
+          aria-controls="mobile-menu"
+          aria-expanded="false"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="4" y1="6" x2="20" y2="6"></line>
+            <line x1="4" y1="12" x2="20" y2="12"></line>
+            <line x1="4" y1="18" x2="20" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+    </nav>
+  </div>
 </header>
 
 <div
   id="mobile-menu"
-  class="fixed inset-0 z-[100] flex flex-col items-center justify-center gap-8 translate-x-full bg-dark-950/95 backdrop-blur-xl h-dvh transition-transform duration-500 ease-in-out lg:hidden"
+  class="fixed inset-0 w-screen h-dvh z-[100] bg-dark-950/95 backdrop-blur-xl flex flex-col items-center justify-center gap-8 translate-x-full transition-transform duration-300 min-[1500px]:hidden"
   role="dialog"
   aria-modal="true"
   aria-label="Menú principal"
   aria-hidden="true"
+  tabindex="-1"
 >
   <button
-    id="mobile-close"
-    class="absolute top-6 right-6 p-2 z-10"
+    id="menu-close"
+    class="absolute top-6 right-6 text-white text-3xl p-4 focus:outline-none hover:text-gold transition-colors"
     aria-label="Cerrar menú"
   >
-    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-white hover:text-gold transition-colors duration-200">
+    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
       <line x1="18" y1="6" x2="6" y2="18"></line>
       <line x1="6" y1="6" x2="18" y2="18"></line>
     </svg>
   </button>
 
-  {navLinks.map((link) => (
+  <nav class="flex flex-col items-center gap-8">
+    {navLinks.map((link) => (
+      <a
+        href={link.href}
+        class="text-3xl font-black font-heading text-white hover:text-gold transition-colors mobile-link uppercase tracking-tighter"
+        id={`mobile-link-${link.label.toLowerCase()}`}
+      >
+        {link.label}
+      </a>
+    ))}
     <a
-      href={link.href}
-      class="text-xl font-heading text-white hover:text-gold transition-colors duration-200"
-      id={`mobile-link-${link.label.toLowerCase()}`}
+      href={BOOKS_URL}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="bg-gold text-dark-950 px-8 py-3 rounded-full font-bold text-lg hover:bg-gold-light transition-all mt-4"
     >
-      {link.label}
+      Reservar
     </a>
-  ))}
-  <a
-    href={BOOKS_URL}
-    target="_blank"
-    rel="noopener noreferrer"
-    class="bg-gold text-dark-900 px-8 py-3 rounded-full font-semibold text-base hover:bg-gold-light transition-all mt-4"
-  >
-    Reservar
-  </a>
+  </nav>
 </div>
 
 <style>
-  .menu-open .bar:nth-child(1) {
-    transform: rotate(45deg) translate(5px, 5px);
-  }
-  .menu-open .bar:nth-child(2) {
-    opacity: 0;
-  }
-  .menu-open .bar:nth-child(3) {
-    transform: rotate(-45deg) translate(5px, -5px);
+  @keyframes soft-pulse {
+    0%,
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    50% {
+      transform: scale(1.15);
+      opacity: 0.75;
+    }
   }
 </style>
 
 <script>
-  const header = document.getElementById('navbar');
-  const mobileToggle = document.getElementById('mobile-toggle');
-  const mobileMenu = document.getElementById('mobile-menu');
-  const mobileClose = document.getElementById('mobile-close');
+  const menuToggle = document.getElementById('menu-toggle')
+  const menuClose = document.getElementById('menu-close')
+  const mobileMenu = document.getElementById('mobile-menu')
+  const mobileLinks = document.querySelectorAll('.mobile-link')
+  const focusableSelectors =
+    'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])'
+  let lastFocusedElement: HTMLElement | null = null
 
-  let menuOpen = false;
-  let lastScrollY = 0;
-  let ticking = false;
-
-  function getFocusableElements() {
-    if (!mobileMenu) return [];
+  const getFocusableElements = () => {
+    if (!mobileMenu) return []
     return Array.from(
-      mobileMenu.querySelectorAll<HTMLElement>(
-        'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
-      )
-    );
+      mobileMenu.querySelectorAll<HTMLElement>(focusableSelectors)
+    ).filter((el) => {
+      return !el.hasAttribute('disabled') && el.getAttribute('aria-hidden') !== 'true'
+    })
   }
 
   function openMenu() {
-    menuOpen = true;
-    mobileMenu?.classList.remove('translate-x-full');
-    mobileMenu?.classList.add('translate-x-0');
-    mobileMenu?.setAttribute('aria-hidden', 'false');
-    mobileToggle?.classList.add('menu-open');
-    mobileToggle?.setAttribute('aria-label', 'Cerrar menú');
-    mobileToggle?.setAttribute('aria-expanded', 'true');
-    document.body.style.overflow = 'hidden';
-
-    const focusable = getFocusableElements();
-    if (focusable.length > 0) {
-      requestAnimationFrame(() => focusable[0].focus());
-    }
+    mobileMenu?.classList.remove('translate-x-full')
+    mobileMenu?.setAttribute('aria-hidden', 'false')
+    menuToggle?.setAttribute('aria-expanded', 'true')
+    menuToggle?.setAttribute('aria-label', 'Cerrar menú')
+    lastFocusedElement = document.activeElement as HTMLElement
+    const firstFocusable = mobileMenu?.querySelector<HTMLElement>(focusableSelectors)
+    firstFocusable?.focus()
+    document.body.style.overflow = 'hidden'
   }
 
   function closeMenu() {
-    menuOpen = false;
-    mobileMenu?.classList.add('translate-x-full');
-    mobileMenu?.classList.remove('translate-x-0');
-    mobileMenu?.setAttribute('aria-hidden', 'true');
-    mobileToggle?.classList.remove('menu-open');
-    mobileToggle?.setAttribute('aria-label', 'Abrir menú');
-    mobileToggle?.setAttribute('aria-expanded', 'false');
-    document.body.style.overflow = '';
-    mobileToggle?.focus();
+    mobileMenu?.classList.add('translate-x-full')
+    mobileMenu?.setAttribute('aria-hidden', 'true')
+    menuToggle?.setAttribute('aria-expanded', 'false')
+    menuToggle?.setAttribute('aria-label', 'Abrir menú')
+    lastFocusedElement?.focus()
+    document.body.style.overflow = ''
   }
 
-  function toggleMenu() {
-    menuOpen ? closeMenu() : openMenu();
-  }
+  menuToggle?.addEventListener('click', openMenu)
+  menuClose?.addEventListener('click', closeMenu)
+  mobileLinks.forEach((link) => link.addEventListener('click', closeMenu))
 
-  mobileToggle?.addEventListener('click', toggleMenu);
-  mobileClose?.addEventListener('click', closeMenu);
+  document.addEventListener('keydown', (event) => {
+    const isMenuVisible = mobileMenu
+      ? !mobileMenu.classList.contains('translate-x-full')
+      : false
+    if (!isMenuVisible) return
 
-  mobileMenu?.querySelectorAll('a').forEach((link) => {
-    link.addEventListener('click', () => {
-      if (menuOpen) closeMenu();
-    });
-  });
-
-  document.addEventListener('keydown', (e) => {
-    if (!menuOpen) return;
-
-    if (e.key === 'Escape') {
-      e.preventDefault();
-      closeMenu();
-      return;
+    if (event.key === 'Escape') {
+      closeMenu()
+      return
     }
 
-    if (e.key === 'Tab') {
-      const focusable = getFocusableElements();
-      if (focusable.length === 0) return;
+    if (event.key !== 'Tab') return
+    const focusable = getFocusableElements()
 
-      const first = focusable[0];
-      const last = focusable[focusable.length - 1];
-
-      if (e.shiftKey) {
-        if (document.activeElement === first) {
-          e.preventDefault();
-          last.focus();
-        }
-      } else {
-        if (document.activeElement === last) {
-          e.preventDefault();
-          first.focus();
-        }
-      }
+    if (focusable.length === 0) {
+      event.preventDefault()
+      return
     }
-  });
 
-  window.addEventListener(
-    'scroll',
-    () => {
-      if (menuOpen || ticking) return;
-      ticking = true;
+    const first = focusable[0]
+    const last = focusable[focusable.length - 1]
+    const isShift = event.shiftKey
 
-      requestAnimationFrame(() => {
-        const currentScrollY = window.scrollY;
+    if (!isShift && document.activeElement === last) {
+      event.preventDefault()
+      first.focus()
+    } else if (isShift && document.activeElement === first) {
+      event.preventDefault()
+      last.focus()
+    }
+  })
 
-        if (currentScrollY > 80) {
-          if (currentScrollY > lastScrollY) {
-            header?.classList.add('-translate-y-full');
-          } else {
-            header?.classList.remove('-translate-y-full');
-          }
-        } else {
-          header?.classList.remove('-translate-y-full');
-        }
+  let lastScroll = 0
+  const header = document.querySelector('header')
 
-        lastScrollY = currentScrollY;
-        ticking = false;
-      });
-    },
-    { passive: true }
-  );
+  window.addEventListener('scroll', () => {
+    const currentScroll = window.scrollY
+    if (currentScroll <= 0) {
+      header?.classList.remove('-translate-y-full')
+      return
+    }
+
+    if (
+      currentScroll > lastScroll &&
+      !mobileMenu?.classList.contains('translate-x-full')
+    ) {
+      // scrolling down while menu is open — do not hide header
+    } else if (currentScroll > lastScroll && currentScroll > 80) {
+      header?.classList.add('-translate-y-full')
+    } else {
+      header?.classList.remove('-translate-y-full')
+    }
+    lastScroll = currentScroll
+  })
 </script>
