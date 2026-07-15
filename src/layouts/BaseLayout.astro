@@ -59,11 +59,34 @@ const canonicalUrl = Astro.site;
       ],
     })} />
   </head>
-  <body class="bg-dark-900 text-white font-body antialiased">
+  <body class="bg-dark-900 text-white font-body antialiased overflow-x-hidden">
+    <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
     <Navbar />
-    <slot />
+    <main id="main-content" tabindex="-1">
+      <slot />
+    </main>
     <Footer />
     <FloatingBookBtn />
     <BackToTop />
   </body>
 </html>
+
+<style>
+  .skip-link {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -100%);
+    z-index: 60;
+    border-radius: 9999px;
+    padding: 0.5rem 1.5rem;
+    font-weight: 600;
+    background-color: #facc15;
+    color: #1e1b18;
+    transition: transform 0.2s ease;
+  }
+
+  .skip-link:focus {
+    transform: translate(-50%, 0);
+  }
+</style>
